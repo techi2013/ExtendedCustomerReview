@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+		   
+	<import resource="classpath:customerreview-spring.xml"/>
+	
+	<bean id="customerReviewValidator" class="de.hybris.platform.customerreview.extended.validator.CustomerReviewValidator"/>
+	
+	<bean id="extendedCustomerReviewDao" class="de.hybris.platform.customerreview.extended.dao.impl.ExtendedCustomerReviewDaoImpl" parent="abstractItemDao" scope="tenant"/>
+
+	<bean id="extendedCustomerReviewService" class="de.hybris.platform.customerreview.extended.impl.ExtendedCustomerReviewServiceImpl" parent="defaultCustomerReviewService" scope="tenant">
+		<property name="customerReviewValidator" ref="customerReviewValidator"/>
+		<property name="extendedCustomerReviewDao" ref="extendedCustomerReviewDao"/>		
+		<property name="curseWords">
+			<list>
+				<value>CurseWordOne</value>
+				<value>CurseWordTwo</value>
+				<value>CurseWordThree</value>
+				<value>CurseWorkFour</value>
+				<value>CurseWordFive</value>
+			</list>
+		</property>
+	</bean>
+</beans>
